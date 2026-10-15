@@ -16,4 +16,9 @@ export function useT(): (key: MessageKey) => string {
   return (key) => translate(locale, key)
 }
 
+export function useTranslation(): { t: (key: MessageKey) => string } {
+  const t = useT()
+  return { t }
+}
+
 export type { MessageKey }

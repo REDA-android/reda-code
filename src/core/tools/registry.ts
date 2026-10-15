@@ -82,7 +82,7 @@ export class ToolRegistry {
       requiresApproval: true,
       preview: (input: WriteFileInput) => this.fs.previewWrite(input),
       execute: (input: WriteFileInput) => {
-        const res = this.fs.writeFile(input)
+        this.fs.writeFile(input)
         return `Successfully wrote ${input.path}`
       }
     })

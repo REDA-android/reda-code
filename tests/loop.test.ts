@@ -28,7 +28,7 @@ describe('runAgentLoop', () => {
     let callCount = 0
     const mockProvider: LLMProvider = {
       id: 'mock',
-      async *stream(req: ChatRequest): AsyncIterable<StreamEvent> {
+      async *stream(_req: ChatRequest): AsyncIterable<StreamEvent> {
         callCount++
         if (callCount === 1) {
           // First turn: model calls read_file

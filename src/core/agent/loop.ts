@@ -123,7 +123,7 @@ export async function runAgentLoop(opts: AgentLoopOptions): Promise<ChatMessage[
 
       // Check approval requirement
       if (toolDef.requiresApproval && !autoMode) {
-        let preview = ''
+        let preview: string
         try {
           preview = toolDef.preview(tc.input)
         } catch {

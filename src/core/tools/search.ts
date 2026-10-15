@@ -1,6 +1,6 @@
 import fg from 'fast-glob'
 import { readFileSync, statSync } from 'node:fs'
-import { join, relative } from 'node:path'
+import { join } from 'node:path'
 import type { WorkspaceGuard } from './guard'
 
 export interface GlobInput {

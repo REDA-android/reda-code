@@ -1,7 +1,7 @@
 import type { ChatRequest, FetchLike, LLMProvider, StreamEvent, ToolSpec } from './types'
 import { ensureOk, safeJsonObject } from './types'
 import { parseSSE } from './sse'
-import type { ChatMessage, Part } from '../../shared/types'
+import type { ChatMessage } from '../../shared/types'
 
 export interface OpenAICompatibleConfig {
   id?: string
