@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import type { McpStatus, ProviderId, Settings } from '@shared/types'
+import type { McpServerConfig, McpStatus, ProviderId, Settings } from '@shared/types'
 import { PROVIDER_IDS } from '@shared/types'
 import { useTranslation } from '../i18n'
 

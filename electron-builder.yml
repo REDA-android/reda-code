@@ -1,0 +1,25 @@
+appId: com.reda.code
+productName: reda-code
+directories:
+  output: release
+files:
+  - out/**/*
+  - node_modules/**/*
+  - package.json
+
+linux:
+  target:
+    - AppImage
+  category: Development
+  synopsis: Desktop AI coding agent with tools, approvals, editor and terminal
+
+win:
+  target:
+    - nsis
+  artifactName: ${productName}-Setup-${version}.${ext}
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
