@@ -52,7 +52,10 @@ export async function* parseSSE(body: ReadableStream<Uint8Array>): AsyncGenerato
     }
     buffer += decoder.decode()
     if (buffer) {
-      const msg = handleLine(buffer.replace(/\r$/, '')) = flush()
+      const msg = handleLine(buffer.replace(/\r$/, ''))
+      if (msg) yield msg
+    }
+    const last = flush()
     if (last) yield last
   } finally {
     reader.releaseLock()
