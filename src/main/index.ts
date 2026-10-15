@@ -31,6 +31,13 @@ const pendingApprovals: Map<string, (approved: boolean) => void> = new Map()
 // Active terminal processes
 const activeTerminals: Map<string, ChildProcess> = new Map()
 
+// In WSL / Linux environments without direct GPU passthrough, disable hardware acceleration
+if (process.platform === 'linux') {
+  app.disableHardwareAcceleration()
+  app.commandLine.appendSwitch('disable-gpu')
+  app.commandLine.appendSwitch('no-sandbox')
+}
+
 function createWindow(): void {
   mainWindow = new BrowserWindow({
     width: 1440,
