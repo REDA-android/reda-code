@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import type {
   AgentEvent,
   ApprovalRequest,
@@ -34,20 +34,20 @@ export function App(): React.JSX.Element {
   const locale: Locale = settings?.locale ?? 'fr'
   const t = (k: Parameters<typeof translate>[1]): string => translate(locale, k)
 
+  const refreshSessions = useCallback(async () => {
+    const list = await window.api.invoke('sessions:list')
+    setSessions(list)
+    if (list.length > 0) {
+      const full = await window.api.invoke('sessions:get', list[0].id)
+      setActiveSession((curr) => curr || full)
+    }
+  }, [])
+
   // Initial load
   useEffect(() => {
     void window.api.invoke('settings:get').then(setSettings)
     void refreshSessions()
-  }, [])
-
-  const refreshSessions = async () => {
-    const list = await window.api.invoke('sessions:list')
-    setSessions(list)
-    if (list.length > 0 && !activeSession) {
-      const full = await window.api.invoke('sessions:get', list[0].id)
-      if (full) setActiveSession(full)
-    }
-  }
+  }, [refreshSessions])
 
   // Listen to IPC Agent Events
   useEffect(() => {
@@ -85,7 +85,7 @@ export function App(): React.JSX.Element {
       }
     })
     return () => unlisten()
-  }, [activeSession])
+  }, [activeSession, refreshSessions])
 
   const handleNewSession = async () => {
     const created = await window.api.invoke('sessions:create')

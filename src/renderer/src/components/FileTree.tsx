@@ -19,7 +19,14 @@ export function FileTree({ workspace, activeFile, onOpenFile }: FileTreeProps): 
   }
 
   useEffect(() => {
-    void loadFiles()
+    if (!workspace) return
+    let active = true
+    window.api.invoke('fs:list', '.').then((list) => {
+      if (active) setNodes(list)
+    })
+    return () => {
+      active = false
+    }
   }, [workspace])
 
   if (!workspace) {
